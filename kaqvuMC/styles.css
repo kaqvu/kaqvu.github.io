@@ -45,7 +45,7 @@ body::before {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -53,9 +53,9 @@ body::before {
 
 .banner {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     position: relative;
-    padding: 30px 0;
+    padding: 40px 0;
 }
 
 .banner-glow {
@@ -63,10 +63,10 @@ body::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
-    filter: blur(50px);
+    filter: blur(60px);
     animation: rotate 10s linear infinite;
     pointer-events: none;
 }
@@ -77,7 +77,7 @@ body::before {
 }
 
 .app-title {
-    font-size: 3.5em;
+    font-size: 4em;
     font-weight: bold;
     background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
     background-size: 200% 200%;
@@ -90,7 +90,22 @@ body::before {
         0 0 40px rgba(255, 0, 255, 0.3);
     position: relative;
     z-index: 2;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.banner-subtitle {
+    font-size: 1.2em;
+    color: #8a8a8a;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes neonFlow {
@@ -99,10 +114,10 @@ body::before {
 }
 
 .banner-line {
-    width: 200px;
-    height: 2px;
+    width: 250px;
+    height: 3px;
     background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, transparent);
-    margin: 20px auto 0;
+    margin: 0 auto;
     animation: lineGlow 2s ease-in-out infinite;
 }
 
@@ -115,8 +130,8 @@ body::before {
     background: rgba(20, 20, 40, 0.6);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(138, 43, 226, 0.3);
-    border-radius: 20px;
-    padding: 40px;
+    border-radius: 25px;
+    padding: 50px;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.5),
         inset 0 0 20px rgba(138, 43, 226, 0.1),
@@ -146,84 +161,193 @@ body::before {
     100% { transform: rotate(360deg); }
 }
 
-.info-card {
+.info-section,
+.requirements-section,
+.action-section {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 40px;
+}
+
+.action-section {
+    margin-bottom: 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.header-icon {
+    font-size: 2em;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.section-header h2 {
+    font-size: 1.5em;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    letter-spacing: 1px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
     background: rgba(30, 30, 60, 0.5);
     border: 1px solid rgba(0, 255, 255, 0.2);
     border-radius: 15px;
     padding: 25px;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     transition: all 0.3s ease;
 }
 
-.info-card:hover {
+.info-item:hover {
     border-color: rgba(0, 255, 255, 0.5);
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-5px);
 }
 
-.info-row {
+.info-icon {
+    font-size: 2em;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+}
+
+.info-content {
     display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.info-row:last-child {
-    border-bottom: none;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .info-label {
-    color: #00ffff;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    font-size: 0.85em;
+    color: #8a8a8a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .info-value {
+    font-size: 1.2em;
     color: #ff00ff;
-    font-weight: 500;
+    font-weight: 600;
     text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
 }
 
-.requirements-card {
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 40px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.divider-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.divider-dot {
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #00ffff, #ff00ff);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.5),
+        0 0 30px rgba(255, 0, 255, 0.3);
+    animation: rotateDot 3s linear infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes rotateDot {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.requirements-box {
     background: rgba(30, 30, 60, 0.5);
     border: 1px solid rgba(255, 0, 255, 0.2);
     border-radius: 15px;
     padding: 25px;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
+    margin-bottom: 20px;
     transition: all 0.3s ease;
 }
 
-.requirements-card:hover {
+.requirements-box:hover {
     border-color: rgba(255, 0, 255, 0.5);
     box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
 }
 
-.requirements-card h2 {
-    color: #ff00ff;
-    font-size: 1.3em;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-}
-
-.requirements-card ul {
-    margin-left: 25px;
-    margin-bottom: 20px;
-}
-
-.requirements-card li {
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     color: #e0e0e0;
-    line-height: 1.8;
-    padding: 5px 0;
+    font-size: 1.05em;
+    line-height: 1.6;
 }
 
-.requirements-text {
+.requirement-bullet {
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #00ffff, #ff00ff);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    animation: bulletPulse 2s ease-in-out infinite;
+}
+
+@keyframes bulletPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.info-box {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.info-box:hover {
+    border-color: rgba(138, 43, 226, 0.6);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+}
+
+.info-box-icon {
+    font-size: 1.5em;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+    flex-shrink: 0;
+}
+
+.info-box p {
     color: #c0c0c0;
-    line-height: 1.6;
-    margin-top: 15px;
+    line-height: 1.7;
+    margin: 0;
 }
 
 .inline-link {
@@ -232,29 +356,32 @@ body::before {
     font-weight: 600;
     transition: all 0.3s ease;
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
 }
 
 .inline-link:hover {
     color: #ff00ff;
     text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+    border-bottom-color: rgba(255, 0, 255, 0.5);
 }
 
 .button-container {
     display: flex;
     justify-content: center;
-    position: relative;
-    z-index: 1;
+    margin-top: 30px;
 }
 
 .install-button {
     position: relative;
-    display: inline-block;
-    padding: 18px 60px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 22px 70px;
     background: linear-gradient(135deg, #8a2be2, #00ffff);
     border: none;
     border-radius: 50px;
     color: #ffffff;
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-weight: bold;
     text-decoration: none;
     text-transform: uppercase;
@@ -262,10 +389,10 @@ body::before {
     cursor: pointer;
     overflow: hidden;
     box-shadow: 
-        0 0 20px rgba(138, 43, 226, 0.5),
-        0 0 40px rgba(0, 255, 255, 0.3),
+        0 0 30px rgba(138, 43, 226, 0.6),
+        0 0 50px rgba(0, 255, 255, 0.4),
         inset 0 0 20px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .install-button::before {
@@ -290,6 +417,18 @@ body::before {
     100% { left: 150%; }
 }
 
+.button-icon {
+    font-size: 1.2em;
+    position: relative;
+    z-index: 1;
+    animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
 .button-text {
     position: relative;
     z-index: 1;
@@ -308,56 +447,78 @@ body::before {
 }
 
 .install-button:hover {
-    transform: translateY(-3px) scale(1.05);
+    transform: translateY(-5px) scale(1.08);
     box-shadow: 
-        0 0 40px rgba(138, 43, 226, 0.8),
-        0 0 60px rgba(0, 255, 255, 0.6),
+        0 0 50px rgba(138, 43, 226, 1),
+        0 0 80px rgba(0, 255, 255, 0.8),
         inset 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 .install-button:hover .button-glow {
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .install-button:active {
-    transform: translateY(-1px) scale(1.02);
+    transform: translateY(-2px) scale(1.05);
 }
 
 .footer {
-    margin-top: 40px;
+    margin-top: 50px;
     text-align: center;
 }
 
 .footer-line {
     width: 100%;
-    height: 1px;
+    height: 2px;
     background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
     margin-bottom: 20px;
+    animation: pulse 3s ease-in-out infinite;
 }
 
-.footer-link {
-    color: #8a8a8a;
-    text-decoration: none;
-    font-size: 0.9em;
-    transition: all 0.3s ease;
+.footer-text {
+    color: #6a6a6a;
+    font-size: 0.95em;
+    letter-spacing: 1px;
 }
 
-.footer-link:hover {
-    color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .app-title {
-        font-size: 2.5em;
+        font-size: 3em;
     }
     
     .content {
-        padding: 25px;
+        padding: 30px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
     }
     
     .install-button {
-        padding: 15px 40px;
-        font-size: 1.1em;
+        padding: 18px 50px;
+        font-size: 1.2em;
+    }
+    
+    .section-header h2 {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 2.2em;
+    }
+    
+    .banner-subtitle {
+        font-size: 1em;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+    
+    .install-button {
+        padding: 15px 35px;
+        font-size: 1em;
     }
 }
