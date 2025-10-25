@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kaqvuMC - Minecraft Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(45deg, #000 0%, #1a1a1a 25%, #000 50%, #1a1a1a 75%, #000 100%);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(100, 100, 100, 0.15), transparent);
+            animation: wave 8s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: 2s;
+            opacity: 0.5;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: 4s;
+            opacity: 0.3;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateX(-50%) skewX(-15deg);
+            }
+            100% {
+                transform: translateX(0%) skewX(-15deg);
+            }
+        }
+
+        .container {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1s ease-out;
+            border: 1px solid #333;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #888 0%, #ddd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .description {
+            color: #bbb;
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #444 0%, #666 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(100, 100, 100, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(150, 150, 150, 0.6);
+            background: linear-gradient(135deg, #555 0%, #777 100%);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .features {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .version {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            color: #aaa;
+            font-size: 15px;
+        }
+
+        .version strong {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo">kaqvu<span style="font-size: 52px;">MC</span></div>
+        <p class="description">
+            Nowoczesny launcher do Minecraft. Łatwy w obsłudze, szybki i niezawodny. Pobierz i zacznij grać w kilka sekund!
+        </p>
+        <a href="kaqvuMC.exe" class="download-btn" download>Pobierz kaqvuMC</a>
+        <div class="features">
+            ✨ Prosty interfejs | ⚡ Szybkie uruchamianie | 🎮 Pełna kompatybilność
+        </div>
+        <div class="version">
+            <strong>Obsługiwane wersje:</strong> 1.16 - 1.21.10
+        </div>
+    </div>
+</body>
+</html>
