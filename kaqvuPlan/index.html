@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Treningowy</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #1a1a1a 50%, #0a0a0a 75%, #1a1a1a 100%);
+  background-size: 400% 400%;
+  animation: bgShift 15s ease infinite;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.password-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.password-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.password-box {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.password-title {
+  font-size: clamp(22px, 5vw, 28px);
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.password-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background: #0a0a0a;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.password-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.password-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.password-btn:active {
+  transform: translateY(0);
+}
+
+.password-error {
+  color: #ff6b6b;
+  margin-top: 15px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.password-error.show {
+  opacity: 1;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: clamp(24px, 6vw, 32px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 2px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+h1.show {
+  animation: floatDown 1s ease-out forwards;
+}
+
+@keyframes floatDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  60% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.day-card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.day-card.show {
+  animation: floatDown 0.8s ease-out forwards;
+}
+
+.day-card.show:nth-child(2) { animation-delay: 0.15s; }
+.day-card.show:nth-child(3) { animation-delay: 0.3s; }
+.day-card.show:nth-child(4) { animation-delay: 0.45s; }
+.day-card.show:nth-child(5) { animation-delay: 0.6s; }
+.day-card.show:nth-child(6) { animation-delay: 0.75s; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.day-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+.day-header {
+  background: #000000;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.day-header:hover {
+  background: #0a0a0a;
+}
+
+.day-header.active {
+  background: #0d0d0d;
+}
+
+.day-title {
+  font-size: clamp(18px, 4.5vw, 22px);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.arrow {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+  color: #ffffff;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
+.day-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 20px;
+  background: #1a1a1a;
+}
+
+.day-content.show {
+  max-height: 1000px;
+  padding: 20px;
+}
+
+@keyframes typeWriter {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.exercise {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: clamp(14px, 3.5vw, 16px);
+  line-height: 1.6;
+  color: #c0c0c0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  opacity: 0;
+}
+
+.exercise.typing {
+  animation: typeWriter 1s steps(40) forwards;
+}
+
+.exercise:nth-child(1).typing { animation-delay: 0s; }
+.exercise:nth-child(2).typing { animation-delay: 1s; }
+.exercise:nth-child(3).typing { animation-delay: 2s; }
+.exercise:nth-child(4).typing { animation-delay: 3s; }
+.exercise:nth-child(5).typing { animation-delay: 4s; }
+
+.exercise:last-child {
+  border-bottom: none;
+}
+
+.diet-card {
+  background: linear-gradient(135deg, #1e2e1e 0%, #2a3e2a 100%);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.diet-card.show {
+  animation: floatUp 0.8s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.diet-title {
+  font-size: clamp(20px, 5vw, 24px);
+  margin-bottom: 20px;
+  color: #81c784;
+  font-weight: 600;
+}
+
+.meal {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  border-left: 3px solid #66bb6a;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.meal:hover {
+  transform: translateX(8px);
+  background: rgba(255,255,255,0.06);
+}
+
+.meal-name {
+  font-weight: 600;
+  color: #a5d6a7;
+  margin-bottom: 8px;
+  font-size: clamp(16px, 4vw, 18px);
+}
+
+.meal-desc {
+  color: #b0b0b0;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+  
+  .day-header {
+    padding: 16px;
+  }
+  
+  .day-content.show {
+    padding: 16px;
+  }
+  
+  .diet-card {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="password-overlay" id="passwordOverlay">
+  <div class="password-box">
+    <div class="password-title">DOSTĘP DO STRONY</div>
+    <input type="password" class="password-input" id="passwordInput" placeholder="Wprowadź hasło">
+    <button class="password-btn" onclick="checkPassword()">POTWIERDŹ</button>
+    <div class="password-error" id="errorMsg">Nieprawidłowe hasło!</div>
+  </div>
+</div>
+
+<div class="container" id="mainContent">
+  <h1 id="mainTitle">PLAN TRENINGOWY</h1>
+  
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div class="day-title">Dzień 1</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="day-content">
+      <div class="exercise">Wyciskanie hantli nad głowę – 3×10</div>
+      <div class="exercise">Uginanie ramion z hantlami (biceps) – 3×10</div>
+      <div class="exercise">Francuskie wyciskanie hantli (triceps) – 3×10</div>
+      <div class="exercise">Plank – 3 serie do wytrzymałości (min. 30–60 sek)</div>
+      <div class="exercise">Mountain climbers – 3×20</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div class="day-title">Dzień 2</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="day-content">
+      <div class="exercise">Bieganie lub rower – 30–40 min</div>
+      <div class="exercise">Skakanka – 5×1 min z 30 sek przerwy</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div class="day-title">Dzień 3</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="day-content">
+      <div class="exercise">Wyciskanie hantli nad głowę lub Arnold press – 3×10</div>
+      <div class="exercise">Wiosłowanie hantlami – 3×10</div>
+      <div class="exercise">Uginanie ramion naprzemiennie – 3×10</div>
+      <div class="exercise">Plank boczny – 3 serie po 30–60 sek na stronę</div>
+      <div class="exercise">Unoszenie nóg w leżeniu – 3×15</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div class="day-title">Dzień 4</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="day-content">
+      <div class="exercise">Bieganie lub rower – 30 min</div>
+      <div class="exercise">Burpees – 3×10</div>
+      <div class="exercise">Russian twist – 3×20</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div class="day-title">Dzień 5</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="day-content">
+      <div class="exercise">Pompki – 3×10–15</div>
+      <div class="exercise">Wyciskanie hantli nad głowę – 3×10</div>
+      <div class="exercise">Uginanie ramion – 3×10</div>
+      <div class="exercise">Plank – 3 serie do wytrzymałości</div>
+    </div>
+  </div>
+
+  <div class="diet-card">
+    <div class="diet-title">Dieta – 3 posiłki dziennie</div>
+    <div class="meal">
+      <div class="meal-name">Śniadanie</div>
+      <div class="meal-desc">kanapki z chleba pełnoziarnistego + jajko/twaróg/szynka + warzywa</div>
+    </div>
+    <div class="meal">
+      <div class="meal-name">Obiad</div>
+      <div class="meal-desc">białko (kurczak, indyk, ryba, jajka) + węglowodany (ryż, makaron pełnoziarnisty, ziemniaki) + warzywa</div>
+    </div>
+    <div class="meal">
+      <div class="meal-name">Kolacja</div>
+      <div class="meal-desc">to, co z obiadu lub sałatka z jajkiem / tuńczykiem, mało węglowodanów</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function checkPassword() {
+  const input = document.getElementById('passwordInput');
+  const overlay = document.getElementById('passwordOverlay');
+  const errorMsg = document.getElementById('errorMsg');
+  const mainContent = document.getElementById('mainContent');
+  const mainTitle = document.getElementById('mainTitle');
+  
+  if (input.value === 'kaqvu11') {
+    overlay.classList.add('hide');
+    
+    setTimeout(() => {
+      mainContent.classList.add('show');
+      mainTitle.classList.add('show');
+      
+      const dayCards = document.querySelectorAll('.day-card');
+      dayCards.forEach(card => {
+        card.classList.add('show');
+      });
+      
+      const dietCard = document.querySelector('.diet-card');
+      dietCard.classList.add('show');
+    }, 500);
+  } else {
+    errorMsg.classList.add('show');
+    input.value = '';
+    input.focus();
+    
+    setTimeout(() => {
+      errorMsg.classList.remove('show');
+    }, 2000);
+  }
+}
+
+document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    checkPassword();
+  }
+});
+
+function toggleDay(header) {
+  const content = header.nextElementSibling;
+  const arrow = header.querySelector('.arrow');
+  const isActive = content.classList.contains('show');
+  
+  document.querySelectorAll('.day-content').forEach(c => {
+    c.classList.remove('show');
+    c.querySelectorAll('.exercise').forEach(ex => {
+      ex.classList.remove('typing');
+      ex.style.width = '';
+      ex.style.opacity = '';
+    });
+  });
+  document.querySelectorAll('.day-header').forEach(h => {
+    h.classList.remove('active');
+  });
+  document.querySelectorAll('.arrow').forEach(a => {
+    a.classList.remove('rotate');
+  });
+  
+  if (!isActive) {
+    content.classList.add('show');
+    header.classList.add('active');
+    arrow.classList.add('rotate');
+    
+    setTimeout(() => {
+      content.querySelectorAll('.exercise').forEach(ex => {
+        ex.style.width = '0';
+        ex.style.opacity = '0';
+        ex.classList.add('typing');
+      });
+    }, 50);
+  }
+}
+</script>
+</body>
+</html>
