@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kaqvuMC - Minecraft Launcher</title>
+    <title>kaqvuMC - Nowoczesny Launcher Minecraft</title>
     <style>
         * {
             margin: 0;
@@ -12,179 +12,536 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000000;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            overflow-x: hidden;
         }
 
-        .bg-animation {
-            position: absolute;
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            background: linear-gradient(45deg, #000 0%, #1a1a1a 25%, #000 50%, #1a1a1a 75%, #000 100%);
-            background-size: 400% 400%;
-            animation: gradientMove 15s ease infinite;
+            z-index: 0;
         }
 
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .wave {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(90deg, transparent, rgba(100, 100, 100, 0.15), transparent);
-            animation: wave 8s linear infinite;
-        }
-
-        .wave:nth-child(2) {
-            animation-delay: 2s;
-            opacity: 0.5;
-        }
-
-        .wave:nth-child(3) {
-            animation-delay: 4s;
-            opacity: 0.3;
-        }
-
-        @keyframes wave {
-            0% {
-                transform: translateX(-50%) skewX(-15deg);
-            }
-            100% {
-                transform: translateX(0%) skewX(-15deg);
-            }
-        }
-
-        .container {
-            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
-            padding: 60px 50px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            max-width: 500px;
+        header {
             position: relative;
-            z-index: 10;
-            animation: fadeIn 1s ease-out;
-            border: 1px solid #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 20px;
         }
 
-        .logo {
-            font-size: 48px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #888 0%, #ddd 100%);
+        h1 {
+            font-size: 7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 50%, #f107a3 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
+            margin-bottom: 30px;
+            letter-spacing: -4px;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            animation: heroAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
+        @keyframes heroAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
             }
-            50% {
-                transform: scale(1.05);
-            }
         }
 
-        .description {
-            color: #bbb;
-            font-size: 18px;
-            margin-bottom: 40px;
-            line-height: 1.6;
+        .hero-description {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            margin-bottom: 50px;
+            opacity: 0;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            animation: heroAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
         }
 
-        .download-btn {
+        .btn-primary {
             display: inline-block;
-            background: linear-gradient(135deg, #444 0%, #666 100%);
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
             color: white;
-            padding: 18px 45px;
-            border-radius: 50px;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 60px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4);
+            opacity: 0;
+            animation: heroAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.6);
+        }
+
+        section {
+            position: relative;
+            padding: 60px 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 80px;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 35px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateY(80px) rotateX(-10deg);
+            perspective: 1000px;
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(123, 47, 247, 0.1) 100%);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.3) translateY(-10px);
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8));
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .about-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(123, 47, 247, 0.05) 100%);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 100px 60px;
+            margin: 120px auto;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .about-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #c0c0c0;
+            font-weight: 300;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 180px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.4), rgba(123, 47, 247, 0.2), transparent 70%);
+            animation: glowPulse 4s ease-in-out infinite;
+            filter: blur(60px);
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        .social-links {
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 1.2rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(100, 100, 100, 0.4);
         }
 
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(150, 150, 150, 0.6);
-            background: linear-gradient(135deg, #555 0%, #777 100%);
+        .social-links a:hover {
+            color: #7b2ff7;
+            transform: translateY(-5px);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
         }
 
-        .download-btn:active {
-            transform: translateY(-1px);
-        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4rem;
+                letter-spacing: -2px;
+            }
 
-        .features {
-            margin-top: 30px;
-            color: #999;
-            font-size: 14px;
-        }
+            h2 {
+                font-size: 2.5rem;
+            }
 
-        .version {
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            color: #aaa;
-            font-size: 15px;
-        }
+            .hero-description {
+                font-size: 1.1rem;
+            }
 
-        .version strong {
-            color: #ddd;
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section {
+                padding: 60px 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="noise"></div>
 
-    <div class="container">
-        <div class="logo">kaqvu<span style="font-size: 52px;">MC</span></div>
-        <p class="description">
-            Nowoczesny launcher do Minecraft. Łatwy w obsłudze, szybki i niezawodny. Pobierz i zacznij grać w kilka sekund!
-        </p>
-        <a href="kaqvuMC/kaqvuMC-2.2.exe" class="download-btn" download>Pobierz kaqvuMC (v: 2.2)</a>
-		<div class="features">
-			| ✨ Ładny ciemny motyw z gradientem ✨ |<br>
-			| ✔️ Oficjalne wersje z minecraft.net ✔️ |
-		</div>
-        <div class="version">
-            <strong>Obsługiwane wersje:</strong> 1.16 - 1.21.10
+    <header>
+        <div class="hero-content">
+            <h1>kaqvuMC</h1>
+            <p class="hero-description">Nowoczesny, szybki i niezawodny launcher Minecraft. Pobierz i zacznij grać w kilka sekund!</p>
+            <a href="/kaqvuMC/kaqvuMC-2.2.exe" class="btn-primary" download>Pobierz kaqvuMC</a>
         </div>
-    </div>
+    </header>
+
+    <section id="features">
+        <h2>Funkcje</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>Obsługa wersji 1.16 – 1.21.10</h3>
+                <p>Pełna kompatybilność z najnowszymi i starszymi wersjami Minecraft</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3>Zgodny z oficjalnym Minecraft.net</h3>
+                <p>Bezpieczne logowanie i pełna integracja z oficjalnymi serwerami</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Nowoczesny wygląd i prosty interfejs</h3>
+                <p>Intuicyjny design, który ułatwia zarządzanie wersjami gry</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Szybka instalacja i automatyczne aktualizacje</h3>
+                <p>Instalacja w kilka sekund i zawsze aktualna wersja launchera</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <h2>O projekcie</h2>
+        <div class="about-content">
+            <p>kaqvuMC to nowoczesny launcher stworzony z myślą o graczach, którzy cenią sobie prostotę i wydajność. Nasz launcher oferuje błyskawiczne uruchamianie gry, automatyczne zarządzanie wersjami oraz elegancki interfejs, który nie odciąga uwagi od tego, co najważniejsze – rozgrywki.</p>
+            <br>
+            <p>Dzięki zaawansowanej optymalizacji, kaqvuMC zużywa minimalne zasoby systemowe, jednocześnie zapewniając maksymalną stabilność i bezpieczeństwo. Wszystkie aktualizacje są instalowane automatycznie, więc zawsze masz dostęp do najnowszych funkcji.</p>
+        </div>
+    </section>
+
+    <section class="download-section">
+        <div class="download-glow"></div>
+        <h2 style="position: relative; z-index: 1;">Pobierz teraz</h2>
+        <a href="/kaqvuMC/kaqvuMC-2.2.exe" class="btn-primary" download style="position: relative; z-index: 1;">Pobierz kaqvuMC</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 kaqvuMC — Launcher Minecraft</p>
+        <div class="social-links">
+            <a href="https://discord.com/invite/y3rynrubDu" target="_blank">Discord</a>
+            <a href="https://www.youtube.com/channel/UCyg-VPRT-BWhXgXImM8CI6A" target="_blank">YouTube</a>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 120;
+        const connectionDistance = 150;
+        const mouse = { x: 0, y: 0, radius: 180 };
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.size = Math.random() * 2.5 + 1;
+                this.color = Math.random() > 0.5 ? 'rgba(0, 212, 255, 0.8)' : 'rgba(123, 47, 247, 0.8)';
+                this.pulse = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    const angle = Math.atan2(dy, dx);
+                    this.vx -= Math.cos(angle) * force * 0.3;
+                    this.vy -= Math.sin(angle) * force * 0.3;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+
+                this.pulse += 0.05;
+            }
+
+            draw() {
+                const pulseSize = this.size + Math.sin(this.pulse) * 0.5;
+                
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = (1 - distance / connectionDistance) * 0.4;
+                        const gradient = ctx.createLinearGradient(
+                            particles[i].x, particles[i].y,
+                            particles[j].x, particles[j].y
+                        );
+                        gradient.addColorStop(0, `rgba(0, 212, 255, ${opacity})`);
+                        gradient.addColorStop(1, `rgba(123, 47, 247, ${opacity})`);
+                        
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function drawMouseGlow() {
+            const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
+            gradient.addColorStop(0, 'rgba(0, 212, 255, 0.15)');
+            gradient.addColorStop(0.5, 'rgba(123, 47, 247, 0.08)');
+            gradient.addColorStop(1, 'rgba(123, 47, 247, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 15, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            drawMouseGlow();
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('.about-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        let scrollPos = 0;
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            scrollPos = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    canvas.style.transform = `translateY(${scrollPos * 0.4}px)`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
 </body>
 </html>
