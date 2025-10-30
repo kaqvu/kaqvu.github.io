@@ -382,9 +382,9 @@
         canvas.height = window.innerHeight;
 
         const particles = [];
-        const particleCount = 120;
+        const particleCount = 60;
         const connectionDistance = 150;
-        const mouse = { x: 0, y: 0, radius: 180 };
+        const mouse = { x: 0, y: 0, radius: 90 };
 
         class Particle {
             constructor() {
@@ -392,7 +392,7 @@
                 this.y = Math.random() * canvas.height;
                 this.vx = (Math.random() - 0.5) * 0.8;
                 this.vy = (Math.random() - 0.5) * 0.8;
-                this.size = Math.random() * 2.5 + 1;
+                this.size = Math.random() * 1.25 + 0.5;
                 this.color = Math.random() > 0.5 ? 'rgba(0, 212, 255, 0.8)' : 'rgba(123, 47, 247, 0.8)';
                 this.pulse = Math.random() * Math.PI * 2;
             }
@@ -425,7 +425,7 @@
             }
 
             draw() {
-                const pulseSize = this.size + Math.sin(this.pulse) * 0.5;
+                const pulseSize = this.size + Math.sin(this.pulse) * 0.25;
                 
                 ctx.shadowBlur = 15;
                 ctx.shadowColor = this.color;
@@ -475,7 +475,9 @@
             gradient.addColorStop(1, 'rgba(123, 47, 247, 0)');
             
             ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
+            ctx.fill();
         }
 
         function animate() {
@@ -526,21 +528,6 @@
 
         document.querySelectorAll('.about-section').forEach(section => {
             observer.observe(section);
-        });
-
-        let scrollPos = 0;
-        let ticking = false;
-
-        window.addEventListener('scroll', () => {
-            scrollPos = window.scrollY;
-
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    canvas.style.transform = `translateY(${scrollPos * 0.4}px)`;
-                    ticking = false;
-                });
-                ticking = true;
-            }
         });
     </script>
 </body>
