@@ -39,6 +39,47 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(30, 30, 35, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        nav .nav-links a:hover {
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
         header {
             position: relative;
             height: 100vh;
@@ -48,6 +89,7 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
+            margin-top: 70px;
         }
 
         .hero-content {
@@ -290,6 +332,19 @@
         }
 
         @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            nav .nav-links {
+                gap: 15px;
+            }
+
+            nav .nav-links a {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
             h1 {
                 font-size: 4rem;
                 letter-spacing: -2px;
@@ -317,6 +372,15 @@
     <canvas id="bg-canvas"></canvas>
     <div class="noise"></div>
 
+    <nav>
+        <div class="logo">kaqvuMC</div>
+        <div class="nav-links">
+            <a href="#funkcje">Funkcje</a>
+            <a href="#oprojekcie">O projekcie</a>
+            <a href="#pobierz" id="downloadBtn3">Pobierz</a>
+        </div>
+    </nav>
+
     <header>
         <div class="hero-content">
             <h1>kaqvuMC</h1>
@@ -325,7 +389,7 @@
         </div>
     </header>
 
-    <section id="features">
+    <section id="funkcje">
         <h2>Funkcje</h2>
         <div class="features-grid">
             <div class="feature-card">
@@ -351,16 +415,16 @@
         </div>
     </section>
 
-    <section class="about-section" id="about">
+    <section class="about-section" id="oprojekcie">
         <h2>O projekcie</h2>
         <div class="about-content">
-            <p>kaqvuMC to nowoczesny launcher stworzony z myślą o graczach, którzy cenią sobie prostotę i wydajność. Nasz launcher oferuje błyskawiczne uruchamianie gry, automatyczne zarządzanie wersjami oraz elegancki interfejs, który nie odciąga uwagi od tego, co najważniejsze – rozgrywki.</p>
+            <p>kaqvuMC to nowoczesny launcher stworzony z myślą o graczach, którzy cenią sobie prostotę i wydajność. Mój launcher oferuje błyskawiczne uruchamianie gry, wybierani wersji, automatyczne pobieranie javy oraz elegancki interfejs, który nie odciąga uwagi od tego, co najważniejsze – rozgrywki.</p>
             <br>
-            <p>Dzięki zaawansowanej optymalizacji, kaqvuMC zużywa minimalne zasoby systemowe, jednocześnie zapewniając maksymalną stabilność i bezpieczeństwo. Wszystkie aktualizacje są instalowane automatycznie, więc zawsze masz dostęp do najnowszych funkcji.</p>
+            <p>Dzięki zaawansowanej optymalizacji, kaqvuMC zużywa minimalne zasoby systemowe, jednocześnie zapewniając maksymalną stabilność i bezpieczeństwo. Najnowsze aktualizacje pokazuje w lewym dolnym rogu launchera, więc zawsze wiesz czy masz aktualną wersję i masz dostęp do najnowszych funkcji.</p>
         </div>
     </section>
 
-    <section class="download-section">
+    <section class="download-section" id="pobierz">
         <div class="download-glow"></div>
         <h2 style="position: relative; z-index: 1;">Pobierz teraz</h2>
         <a href="#" class="btn-primary" id="downloadBtn2" download style="position: relative; z-index: 1;">Pobierz kaqvuMC</a>
@@ -379,12 +443,30 @@
         
         const downloadBtn1 = document.getElementById('downloadBtn1');
         const downloadBtn2 = document.getElementById('downloadBtn2');
+        const downloadBtn3 = document.getElementById('downloadBtn3');
         
         downloadBtn1.textContent = `Pobierz kaqvuMC (Wersja ${VERSION})`;
         downloadBtn1.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
         
         downloadBtn2.textContent = 'Pobierz kaqvuMC';
         downloadBtn2.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
+
+        downloadBtn3.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
 
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
