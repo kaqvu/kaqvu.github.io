@@ -470,29 +470,40 @@
 
         downloadBtn3.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
 
+        function scrollToSection(targetId) {
+            const target = document.querySelector(targetId);
+            if (target) {
+                let offset = 100;
+                
+                if (targetId === '#funkcje') {
+                    offset = 120;
+                } else if (targetId === '#oprojekcie') {
+                    offset = 200;
+                }
+                
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (this.getAttribute('href') !== '#') {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        const targetId = this.getAttribute('href');
-                        let offset = 100;
-                        
-                        if (targetId === '#funkcje') {
-                            offset = 120;
-                        } else if (targetId === '#oprojekcie') {
-                            offset = 150;
-                        }
-                        
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+                    scrollToSection(this.getAttribute('href'));
                 }
             });
+        });
+
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                setTimeout(() => {
+                    scrollToSection(window.location.hash);
+                }, 100);
+            }
         });
 
         const canvas = document.getElementById('bg-canvas');
