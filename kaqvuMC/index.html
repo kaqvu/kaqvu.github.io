@@ -321,7 +321,7 @@
         <div class="hero-content">
             <h1>kaqvuMC</h1>
             <p class="hero-description">Nowoczesny, szybki i niezawodny launcher Minecraft. Pobierz i zacznij grać w kilka sekund!</p>
-            <a href="/kaqvuMC/kaqvuMC-2.5.exe" class="btn-primary" download>Pobierz kaqvuMC (Wersja 2.5)</a>
+            <a href="#" class="btn-primary" id="downloadBtn1" download>Pobierz kaqvuMC</a>
         </div>
     </header>
 
@@ -363,7 +363,7 @@
     <section class="download-section">
         <div class="download-glow"></div>
         <h2 style="position: relative; z-index: 1;">Pobierz teraz</h2>
-        <a href="/kaqvuMC/kaqvuMC-2.5.exe" class="btn-primary" download style="position: relative; z-index: 1;">Pobierz kaqvuMC</a>
+        <a href="#" class="btn-primary" id="downloadBtn2" download style="position: relative; z-index: 1;">Pobierz kaqvuMC</a>
     </section>
 
     <footer>
@@ -375,6 +375,17 @@
     </footer>
 
     <script>
+        const VERSION = '2.5';
+        
+        const downloadBtn1 = document.getElementById('downloadBtn1');
+        const downloadBtn2 = document.getElementById('downloadBtn2');
+        
+        downloadBtn1.textContent = `Pobierz kaqvuMC (Wersja ${VERSION})`;
+        downloadBtn1.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
+        
+        downloadBtn2.textContent = 'Pobierz kaqvuMC';
+        downloadBtn2.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
+
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
