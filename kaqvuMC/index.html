@@ -570,20 +570,11 @@
                     <div class="download-arrow">→</div>
                 </div>
 
-                <div class="download-item" id="downloadModKod">
+                <div class="download-item" id="downloadModCore">
                     <div class="download-icon">⚙️</div>
                     <div class="download-info">
-                        <div class="download-name">Mod Fabric 1.21.1 kaqvuKod</div>
-                        <div class="download-desc">Mod dodający automatyczne przechwytywanie kodu z chatu i wysyłania go na chat.</div>
-                    </div>
-                    <div class="download-arrow">→</div>
-                </div>
-
-                <div class="download-item" id="downloadModMath">
-                    <div class="download-icon">🔢</div>
-                    <div class="download-info">
-                        <div class="download-name">Mod Fabric 1.21.1 kaqvuMath</div>
-                        <div class="download-desc">Mod dodający automatyczne obliczanie równania z chatu i wysyłania je na chat.</div>
+                        <div class="download-name">Fabric 1.21.1 kaqvuCore (MOD)</div>
+                        <div class="download-desc">Mod dodający automatyczne przechwytywanie kodu i obliczeń matematycznych z chatu i wysyłania ich na chat.</div>
                     </div>
                     <div class="download-arrow">→</div>
                 </div>
@@ -668,12 +659,10 @@
         
         const downloadLauncher = document.getElementById('downloadLauncher');
         const downloadTexture = document.getElementById('downloadTexture');
-        const downloadModKod = document.getElementById('downloadModKod');
-        const downloadModMath = document.getElementById('downloadModMath');
+        const downloadModCore = document.getElementById('downloadModCore');
 
         const TEXTURE_LINK = '/kaqvuMC/' + encodeURIComponent('§0! §8§lkaqvu §0§lMX §r§f.zip');
-        const MOD_KOD_LINK = '/kaqvuMC/kaqvukod-1.4.jar';
-        const MOD_MATH_LINK = '/kaqvuMC/kaqvumath-1.2.jar';
+        const MOD_CORE_LINK = '/kaqvuMC/kaqvucore-1.6.jar';
 
         function openPopup(e) {
             e.preventDefault();
@@ -708,13 +697,8 @@
             closePopup();
         });
 
-        downloadModKod.addEventListener('click', () => {
-            window.open(MOD_KOD_LINK, '_blank');
-            closePopup();
-        });
-
-        downloadModMath.addEventListener('click', () => {
-            window.open(MOD_MATH_LINK, '_blank');
+        downloadModCore.addEventListener('click', () => {
+            window.open(MOD_CORE_LINK, '_blank');
             closePopup();
         });
 
