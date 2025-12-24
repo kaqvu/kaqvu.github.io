@@ -7,14 +7,181 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'VT323', monospace;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    border-bottom: 2px solid #2a2a2a;
+}
+h1 {
+    font-size: 4rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+.subtitle {
+    font-size: 1.8rem;
+    color: #b0b0b0;
+    letter-spacing: 1px;
+}
+main {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+.section-title {
+    font-size: 3rem;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+}
+.mods-section, .texturepack-section {
+    margin-bottom: 60px;
+}
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+.card {
+    background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+    border: 2px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(0, 255, 0, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #00ff00;
+    box-shadow: 0 10px 40px rgba(0, 255, 0, 0.3);
+}
+.card:hover::before {
+    opacity: 1;
+}
+.card-content {
+    padding: 30px;
+    flex: 1;
+}
+.card h3 {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+.author {
+    font-size: 1.3rem;
+    color: #888888;
+    margin-bottom: 15px;
+}
+.description {
+    font-size: 1.4rem;
+    color: #c0c0c0;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+.version {
+    font-size: 1.3rem;
+    color: #00ff00;
+    margin-bottom: 0;
+}
+.download-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(145deg, #00cc00, #009900);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    border-top: 2px solid #00ff00;
+    text-align: center;
+    cursor: pointer;
+}
+.download-btn:hover {
+    background: linear-gradient(145deg, #00ff00, #00cc00);
+    box-shadow: 0 -5px 20px rgba(0, 255, 0, 0.5);
+}
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #0f0f0f;
+    border-top: 2px solid #2a2a2a;
+    font-size: 1.5rem;
+    color: #888888;
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    .subtitle {
+        font-size: 1.3rem;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .cards-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+    .card h3 {
+        font-size: 1.8rem;
+    }
+    .description {
+        font-size: 1.2rem;
+    }
+}
+    </style>
 </head>
 <body>
     <header>
         <h1 class="fade-in">kaqvuDevHub</h1>
         <p class="subtitle fade-in">Minecraft Mods & Texturepacks</p>
     </header>
-
     <main>
         <section class="mods-section">
             <h2 class="section-title fade-in">Mods (Fabric)</h2>
@@ -28,7 +195,6 @@
                     </div>
                     <a href="/kaqvucore-1.7.jar" class="download-btn" download>Pobierz</a>
                 </div>
-
                 <div class="card fade-in">
                     <div class="card-content">
                         <h3>kaqvuUtil</h3>
@@ -38,7 +204,6 @@
                     </div>
                     <a href="/kaqvuutil-1.5.jar" class="download-btn" download>Pobierz</a>
                 </div>
-
                 <div class="card fade-in">
                     <div class="card-content">
                         <h3>kaqvuReconnect</h3>
@@ -50,7 +215,6 @@
                 </div>
             </div>
         </section>
-
         <section class="texturepack-section">
             <h2 class="section-title fade-in">TexturePack</h2>
             <div class="cards-grid">
@@ -66,11 +230,47 @@
             </div>
         </section>
     </main>
-
     <footer>
         <p>© kaqvuDevHub</p>
     </footer>
-
-    <script src="./script.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach(element => {
+        observer.observe(element);
+    });
+    const texturepackBtn = document.getElementById('texturepackBtn');
+    if (texturepackBtn) {
+        texturepackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            fetch('/kaqvupack.zip')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = '§0! §8§lkaqvu§0§lPack §r§f.zip';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    }
+});
+    </script>
 </body>
 </html>
