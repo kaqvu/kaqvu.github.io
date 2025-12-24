@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const url = window.URL.createObjectURL(blob);
                     const link = document.createElement('a');
                     link.href = url;
-                    link.download = '§0! §8§lkaqvu §0§lMX §r§f.zip';
+                    link.download = '§0! §8§lkaqvu§0§lPack §r§f.zip';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
