@@ -21,13 +21,20 @@ document.addEventListener('DOMContentLoaded', function() {
     if (texturepackBtn) {
         texturepackBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            const fileName = '§0! §8§lkaqvu §0§lMX §r§f.zip';
-            const link = document.createElement('a');
-            link.href = '/' + encodeURIComponent(fileName);
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            
+            fetch('/kaqvupack.zip')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = '§0! §8§lkaqvu §0§lMX §r§f.zip';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
         });
     }
 });
