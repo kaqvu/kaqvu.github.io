@@ -12,8 +12,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            font-family: -apple-system, Blink
             color: #e0e0e0;
             overflow-x: hidden;
         }
@@ -162,7 +161,6 @@
             animation: heroAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
         }
 
         .btn-primary::before {
@@ -183,150 +181,6 @@
         .btn-primary:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 30px 80px rgba(0, 212, 255, 0.6);
-        }
-
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .popup-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .popup-container {
-            background: linear-gradient(135deg, rgba(40, 40, 50, 0.98) 0%, rgba(20, 20, 30, 0.98) 100%);
-            backdrop-filter: blur(30px);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 30px;
-            padding: 50px 40px;
-            max-width: 700px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: scale(0.8) translateY(50px);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 30px 100px rgba(0, 212, 255, 0.3);
-        }
-
-        .popup-overlay.active .popup-container {
-            transform: scale(1) translateY(0);
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .popup-close:hover {
-            background: rgba(255, 0, 0, 0.3);
-            transform: rotate(90deg);
-        }
-
-        .popup-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .download-items {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .download-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-        }
-
-        .download-item:hover {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(123, 47, 247, 0.1) 100%);
-            border-color: rgba(0, 212, 255, 0.4);
-            transform: translateX(10px) scale(1.02);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
-        }
-
-        .download-icon {
-            font-size: 3rem;
-            min-width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .download-item:hover .download-icon {
-            transform: scale(1.2) rotate(10deg);
-            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.8));
-        }
-
-        .download-info {
-            flex: 1;
-        }
-
-        .download-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .download-desc {
-            font-size: 0.95rem;
-            color: #b0b0b0;
-            line-height: 1.5;
-        }
-
-        .download-arrow {
-            font-size: 1.5rem;
-            color: #00d4ff;
-            transition: all 0.3s ease;
-        }
-
-        .download-item:hover .download-arrow {
-            transform: translateX(10px);
         }
 
         section {
@@ -527,60 +381,12 @@
             .about-section {
                 padding: 60px 30px;
             }
-
-            .popup-container {
-                padding: 40px 25px;
-            }
-
-            .popup-title {
-                font-size: 2rem;
-            }
-
-            .download-item {
-                flex-direction: column;
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
     <canvas id="bg-canvas"></canvas>
     <div class="noise"></div>
-
-    <div class="popup-overlay" id="popupOverlay">
-        <div class="popup-container">
-            <button class="popup-close" id="popupClose">×</button>
-            <h2 class="popup-title">Co chcesz pobrać?</h2>
-            <div class="download-items">
-                <div class="download-item" id="downloadLauncher">
-                    <div class="download-icon">🚀</div>
-                    <div class="download-info">
-                        <div class="download-name">kaqvuMC Launcher</div>
-                        <div class="download-desc">Główny launcher z obsługą wersji 1.8-1.21.11 i automatycznymi aktualizacjami.</div>
-                    </div>
-                    <div class="download-arrow">→</div>
-                </div>
-
-                <div class="download-item" id="downloadTexture">
-                    <div class="download-icon">🎨</div>
-                    <div class="download-info">
-                        <div class="download-name">Texturepack 1.21.1 kaqvu MX</div>
-                        <div class="download-desc">Autorski pack tekstur zaprojektowany dla optymalnej rozgrywki PvP.</div>
-                    </div>
-                    <div class="download-arrow">→</div>
-                </div>
-
-                <div class="download-item" id="downloadModCore">
-                    <div class="download-icon">⚙️</div>
-                    <div class="download-info">
-                        <div class="download-name">Fabric 1.21.1 kaqvuCore (MOD)</div>
-                        <div class="download-desc">Mod dodający automatyczne przechwytywanie kodu i obliczeń matematycznych z chatu i wysyłania ich na chat.</div>
-                    </div>
-                    <div class="download-arrow">→</div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <nav>
         <div class="nav-logo">kaqvuMC</div>
@@ -595,7 +401,7 @@
         <div class="hero-content">
             <h1>kaqvuMC</h1>
             <p class="hero-description">Nowoczesny, szybki i niezawodny launcher Minecraft. Pobierz i zacznij grać w kilka sekund!</p>
-            <a href="#" class="btn-primary" id="downloadBtn1">Pobierz kaqvuMC</a>
+            <a href="#" class="btn-primary" id="downloadBtn1" download>Pobierz kaqvuMC</a>
         </div>
     </header>
 
@@ -637,7 +443,7 @@
     <section class="download-section" id="pobierz">
         <div class="download-glow"></div>
         <h2 style="position: relative; z-index: 1;">Pobierz teraz</h2>
-        <a href="#" class="btn-primary" id="downloadBtn2" style="position: relative; z-index: 1;">Pobierz kaqvuMC</a>
+        <a href="#" class="btn-primary" id="downloadBtn2" download style="position: relative; z-index: 1;">Pobierz kaqvuMC</a>
     </section>
 
     <footer>
@@ -651,56 +457,17 @@
     <script>
         const VERSION = '4.4';
         
-        const popupOverlay = document.getElementById('popupOverlay');
-        const popupClose = document.getElementById('popupClose');
         const downloadBtn1 = document.getElementById('downloadBtn1');
         const downloadBtn2 = document.getElementById('downloadBtn2');
         const downloadBtn3 = document.getElementById('downloadBtn3');
         
-        const downloadLauncher = document.getElementById('downloadLauncher');
-        const downloadTexture = document.getElementById('downloadTexture');
-        const downloadModCore = document.getElementById('downloadModCore');
-
-        const TEXTURE_LINK = '/kaqvuMC/' + encodeURIComponent('§0! §8§lkaqvu §0§lMX §r§f.zip');
-        const MOD_CORE_LINK = '/kaqvuMC/kaqvucore-1.7.jar';
-
-        function openPopup(e) {
-            e.preventDefault();
-            popupOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePopup() {
-            popupOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        downloadBtn1.addEventListener('click', openPopup);
-        downloadBtn2.addEventListener('click', openPopup);
-        downloadBtn3.addEventListener('click', openPopup);
+        downloadBtn1.textContent = `Pobierz kaqvuMC (Wersja ${VERSION})`;
+        downloadBtn1.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
         
-        popupClose.addEventListener('click', closePopup);
-        
-        popupOverlay.addEventListener('click', (e) => {
-            if (e.target === popupOverlay) {
-                closePopup();
-            }
-        });
+        downloadBtn2.textContent = 'Pobierz kaqvuMC';
+        downloadBtn2.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
 
-        downloadLauncher.addEventListener('click', () => {
-            window.location.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
-            closePopup();
-        });
-
-        downloadTexture.addEventListener('click', () => {
-            window.open(TEXTURE_LINK, '_blank');
-            closePopup();
-        });
-
-        downloadModCore.addEventListener('click', () => {
-            window.open(MOD_CORE_LINK, '_blank');
-            closePopup();
-        });
+        downloadBtn3.href = `/kaqvuMC/kaqvuMC-${VERSION}.exe`;
 
         function scrollToSection(targetId) {
             const target = document.querySelector(targetId);
@@ -723,7 +490,7 @@
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') !== '#' && !this.classList.contains('btn-primary')) {
+                if (this.getAttribute('href') !== '#') {
                     e.preventDefault();
                     scrollToSection(this.getAttribute('href'));
                 }
