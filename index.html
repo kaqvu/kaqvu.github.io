@@ -4,189 +4,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kaqvuHub - Portfolio Projektów</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 0, 0.03), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 5rem;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
+                         0 0 40px rgba(0, 255, 0, 0.4);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
+                             0 0 40px rgba(0, 255, 0, 0.4);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(0, 255, 0, 0.8),
+                             0 0 60px rgba(0, 255, 0, 0.5);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #b0b0b0;
+            letter-spacing: 2px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border: 2px solid #2a2a2a;
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 255, 0, 0.08));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: #00ff00;
+            box-shadow: 0 15px 50px rgba(0, 255, 0, 0.4);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.3));
+        }
+
+        .project-name {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+        }
+
+        .project-description {
+            font-size: 1.5rem;
+            color: #c0c0c0;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .open-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 35px;
+            background: linear-gradient(145deg, #00cc00, #009900);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.6rem;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .open-btn:hover {
+            background: linear-gradient(145deg, #00ff00, #00cc00);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid #2a2a2a;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 1.5rem;
+            color: #888888;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+
+            .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+
+            .project-name {
+                font-size: 2rem;
+            }
+
+            .project-description {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="particles"></div>
-    
     <div class="background-overlay"></div>
     
     <div class="container">
         <header class="header">
-            <div class="logo-container">
-                <h1 class="title">kaqvuHub</h1>
-                <div class="title-glow"></div>
-            </div>
+            <h1 class="title">kaqvuHub</h1>
             <p class="subtitle">Odkryj moje projekty i narzędzia</p>
         </header>
         
         <main class="projects-grid">
-            <a href="https://channels.zawrot.pl" target="_blank" class="project-card" data-index="0">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">💻</div>
                     <h3 class="project-name">kaqvuChannels</h3>
                     <p class="project-description">Obejrzyj sobie mecz na żywo</p>
-                    <div class="card-arrow">→</div>
+                    <a href="https://channels.zawrot.pl" target="_blank" class="open-btn">Otwórz</a>
                 </div>
-            </a>
-			
-            <a href="/kaqvuDownload" class="project-card" data-index="4">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            </div>
+
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">🔌</div>
                     <h3 class="project-name">kaqvuDownload</h3>
                     <p class="project-description">Strona do pobrania moich modów i texturepacków do minecraft</p>
-                    <div class="card-arrow">→</div>
+                    <a href="/kaqvuDownload" class="open-btn">Otwórz</a>
                 </div>
-            </a>			
+            </div>
             
-            <a href="https://msg.zawrot.pl" target="_blank" class="project-card" data-index="1">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">💭</div>
                     <h3 class="project-name">kaqvuMessages</h3>
                     <p class="project-description">Napisz i wyślij wiadomość</p>
-                    <div class="card-arrow">→</div>
+                    <a href="https://msg.zawrot.pl" target="_blank" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
             
-            <a href="https://store.zawrot.pl" target="_blank" class="project-card" data-index="2">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">💾</div>
                     <h3 class="project-name">kaqvuStore</h3>
                     <p class="project-description">Zainstaluj moje aplikacje</p>
-                    <div class="card-arrow">→</div>
+                    <a href="https://store.zawrot.pl" target="_blank" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
             
-            <a href="https://kaqvuholder.onrender.com" target="_blank" class="project-card" data-index="3">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">🤖</div>
                     <h3 class="project-name">kaqvuHolder</h3>
                     <p class="project-description">Przejdź do zarządzania botami Discord</p>
-                    <div class="card-arrow">→</div>
+                    <a href="https://kaqvuholder.onrender.com" target="_blank" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
 
-            <a href="/kaqvuMC" class="project-card" data-index="4">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">⛏️</div>
                     <h3 class="project-name">kaqvuMC</h3>
                     <p class="project-description">Pobierz najlepszy launcher do Minecraft</p>
-                    <div class="card-arrow">→</div>
+                    <a href="/kaqvuMC" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
 
-            <a href="https://kaqvunodebot.eu-4.evennode.com" target="_blank" class="project-card" data-index="5">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">🎮</div>
                     <h3 class="project-name">kaqvuNodeBot</h3>
                     <p class="project-description">System zarządzania botami Minecraft</p>
-                    <div class="card-arrow">→</div>
+                    <a href="https://kaqvunodebot.eu-4.evennode.com" target="_blank" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
 
-            <a href="https://kaqvuip.eu-4.evennode.com" target="_blank" class="project-card" data-index="6">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">🌐</div>
                     <h3 class="project-name">kaqvuIP</h3>
                     <p class="project-description">Sprawdź swoje publiczne IP</p>
-                    <div class="card-arrow">→</div>
+                    <a href="https://kaqvuip.eu-4.evennode.com" target="_blank" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
 
-            <a href="/proxy" class="project-card" data-index="4">
-                <div class="card-background"></div>
-                <div class="card-glow"></div>
-                <div class="holographic-layer"></div>
-                <div class="neural-network">
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                    <div class="neural-dot"></div>
-                </div>
+            <div class="project-card">
                 <div class="card-content">
                     <div class="icon">🔌</div>
                     <h3 class="project-name">Proxy</h3>
                     <p class="project-description">Strona z proxy do botowania serwerów minecraft</p>
-                    <div class="card-arrow">→</div>
+                    <a href="/proxy" class="open-btn">Otwórz</a>
                 </div>
-            </a>
+            </div>
         </main>
         
         <footer class="footer">
             <p>&copy; 2025 kaqvuHub - Wszystkie prawa zastrzeżone</p>
-            <div class="footer-glow"></div>
         </footer>
     </div>
 </body>
