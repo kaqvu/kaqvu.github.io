@@ -16,4 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
     fadeElements.forEach(element => {
         observer.observe(element);
     });
+
+    const texturepackBtn = document.getElementById('texturepackBtn');
+    if (texturepackBtn) {
+        texturepackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const fileName = '§0! §8§lkaqvu §0§lMX §r§f.zip';
+            const link = document.createElement('a');
+            link.href = '/' + encodeURIComponent(fileName);
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
 });
