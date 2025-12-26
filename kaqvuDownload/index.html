@@ -200,7 +200,7 @@ footer {
                     <div class="card-content">
                         <h3>kaqvuUtil</h3>
                         <p class="author">Autor: kaqvu</p>
-						<p class="modversion">Wersja moda: 1.5</p>
+                        <p class="modversion">Wersja moda: 1.5</p>
                         <p class="description">Mod wymagany do działania innych modów kaqvu.</p>
                         <p class="version">Fabric | 1.21.1 – 1.21.11</p>
                     </div>
@@ -210,7 +210,7 @@ footer {
                     <div class="card-content">
                         <h3>kaqvuReconnect</h3>
                         <p class="author">Autor: kaqvu</p>
-						<p class="modversion">Wersja moda: 1.12</p>
+                        <p class="modversion">Wersja moda: 1.12</p>
                         <p class="description">Automatyczny reconnect z flagami umożliwiającymi automatyczne wejście na wybrany tryb po ponownym połączeniu.</p>
                         <p class="version">Fabric | 1.21.1 – 1.21.11</p>
                     </div>
@@ -253,13 +253,17 @@ document.addEventListener('DOMContentLoaded', function() {
     fadeElements.forEach(element => {
         observer.observe(element);
     });
+
     const texturepackBtn = document.getElementById('texturepackBtn');
     if (texturepackBtn) {
         texturepackBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
             fetch('/kaqvupack.zip')
-                .then(response => response.blob())
+                .then(response => {
+                    if (!response.ok) throw new Error('Błąd pobierania');
+                    return response.blob();
+                })
                 .then(blob => {
                     const url = window.URL.createObjectURL(blob);
                     const link = document.createElement('a');
@@ -268,9 +272,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                    window.URL.revokeObjectURL(url);
+                    setTimeout(() => window.URL.revokeObjectURL(url), 100);
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Błąd:', error);
+                    alert('Nie udało się pobrać pliku. Sprawdź czy kaqvupack.zip znajduje się w folderze.');
+                });
         });
     }
 });
