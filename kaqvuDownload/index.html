@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
         texturepackBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            fetch('/kaqvupack.zip')
+            fetch('kaqvuDownload/kaqvupack.zip')
                 .then(response => {
                     if (!response.ok) throw new Error('Błąd pobierania');
                     return response.blob();
