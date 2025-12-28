@@ -93,6 +93,25 @@ main {
 .card:hover::before {
     opacity: 1;
 }
+
+/* Czerwone style dla kaqvuCore */
+.card.kaqvucore-card {
+    border-color: #3a2a2a;
+}
+.card.kaqvucore-card::before {
+    background: linear-gradient(135deg, transparent, rgba(255, 0, 0, 0.05));
+}
+.card.kaqvucore-card:hover {
+    border-color: #ff0000;
+    box-shadow: 0 10px 40px rgba(255, 0, 0, 0.3);
+}
+.card.kaqvucore-card h3 {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+.card.kaqvucore-card .version {
+    color: #ff0000;
+}
+
 .card-content {
     padding: 30px;
     flex: 1;
@@ -137,6 +156,16 @@ main {
     background: linear-gradient(145deg, #00ff00, #00cc00);
     box-shadow: 0 -5px 20px rgba(0, 255, 0, 0.5);
 }
+
+/* Przycisk "Nie publiczne" dla kaqvuCore */
+.download-btn.not-public {
+    background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+    border-top: 2px solid #666666;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 footer {
     text-align: center;
     padding: 30px;
@@ -186,7 +215,7 @@ footer {
         <section class="mods-section">
             <h2 class="section-title fade-in">Mods (Fabric)</h2>
             <div class="cards-grid">
-                <div class="card fade-in">
+                <div class="card kaqvucore-card fade-in">
                     <div class="card-content">
                         <h3>kaqvuCore</h3>
                         <p class="author">Autor: kaqvu</p>
@@ -194,7 +223,7 @@ footer {
                         <p class="description">Automatyczny mod przepisujący kod lub wynik działania z czatu.</p>
                         <p class="version">Fabric | 1.21.1 – 1.21.11</p>
                     </div>
-                    <a href="/kaqvuDownload/kaqvucore-1.7.jar" class="download-btn" download>Pobierz</a>
+                    <span class="download-btn not-public">Nie publiczne</span>
                 </div>
                 <div class="card fade-in">
                     <div class="card-content">
