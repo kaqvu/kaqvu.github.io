@@ -1,5 +1,6 @@
 {
     "version": "4.9",
 	"kaqvuutil": "2.9",
-	"kaqvureconnect": "1.12"
+	"kaqvureconnect": "1.12",
+	"kaqvucore": "1.7"
 }
