@@ -1,6 +1,7 @@
 {
-    "version": "5.3",
-	"kaqvuutil": "2.9",
-	"kaqvureconnect": "1.12",
-	"kaqvucore": "1.7"
+  "version": "5.4",
+  "downloadUrl": "https://kaqvuhub.vercel.app/kaqvuMC/launcher/kaqvuMC-v5.4.zip",
+  "kaqvuutil": "2.9",
+  "kaqvureconnect": "1.12",
+  "kaqvucore": "1.7"
 }
